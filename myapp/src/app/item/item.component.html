@@ -1,8 +1,25 @@
 <!-- Проекция контента -->
 <!-- В select указывается селектор как в CSS (класс, тег, ID) -->
 <ng-content select=".first-p"></ng-content> <!-- клас -->
+
+<!-- Атрибут дирректива colory -->
 <p appColory>item works!</p>
-<!-- Директиву можно задавать и на компоненты -->
+
+<!-- Атрибут директиву можно задавать и на компоненты -->
 <ng-content select="#second-p"></ng-content> <!-- ID -->
-<p>item works!</p>
+
+<div *ngFor="let num of [1, 2, 3, 4, 5]">
+  <!-- Структурная дирректива appDelay одновременно и входящий параметр-->
+  <span *appDelay="num">item works! {{num}} </span>
+
+  <!--
+    Под капотом ангуляр переписывает структурную директиву следующим побразом
+      <ng-template> Это ViewContainer
+        <span [appDelay]="num">item works! {{num}} </span>   Это template
+      </ng-template>
+  -->
+
+</div>
+
+
 <ng-content select="div"></ng-content> <!-- тег -->
