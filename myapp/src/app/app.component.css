@@ -1,0 +1,18 @@
+.title {
+  color: green;
+  font-size: 32px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.green {
+  color: green;
+}
+
+.tomato {
+  color: tomato;
+}
+
+.blue {
+  color: blue;
+}

@@ -1,0 +1,11 @@
+<p>user works!</p>
+<p>
+  Admin {{admin?.name}}
+</p>
+<p>Users</p>
+<ul>
+  <li *ngFor="let userC of users">
+    <app-user-card [userCrrent]="userC" (currentUserClick)="selectedUser = userC"></app-user-card>
+  </li>
+</ul>
+<h4>Current user: {{selectedUser?.name}}</h4>
