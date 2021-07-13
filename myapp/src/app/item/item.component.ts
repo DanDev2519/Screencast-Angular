@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef } from '@angular/core';
+import { DinamicItemComponent } from './dinamic-item/dinamic-item.component';
 
 @Component({
   selector: 'app-item',
@@ -6,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
-  constructor() { }
+  constructor(private viewContainerRef: ViewContainerRef,
+    private componentFactoryResolver: ComponentFactoryResolver) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    setTimeout(() => {
+      // фабрика для создания компонента
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(DinamicItemComponent);
+      // в контейнере создаем динамический компонент с помощью фабрики
+      const componentRef = this.viewContainerRef.createComponent(componentFactory);
+    }, 3000);
   }
 
 }

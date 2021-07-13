@@ -8,6 +8,7 @@ import { UserCardComponent } from './user/user-card/user-card.component';
 import { ItemComponent } from './item/item.component';
 import { ColoryDirective } from './item/colory.directive';
 import { DelayDirective } from './item/delay.directive';
+import { DinamicItemComponent } from './item/dinamic-item/dinamic-item.component';
 
 @NgModule({
   declarations: [
@@ -16,8 +17,10 @@ import { DelayDirective } from './item/delay.directive';
     UserCardComponent,
     ItemComponent,
     ColoryDirective,
-    DelayDirective
+    DelayDirective,
+    DinamicItemComponent
   ],
+  entryComponents: [DinamicItemComponent], // компоненты которые будут добалвены динамически
   imports: [
     BrowserModule,
     AppRoutingModule
