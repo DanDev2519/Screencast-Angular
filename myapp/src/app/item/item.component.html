@@ -3,9 +3,15 @@
 <ng-content select=".first-p"></ng-content> <!-- клас -->
 
 <!-- Атрибут дирректива colory -->
-<p appColory>item works!</p>
-
 <!-- Атрибут директиву можно задавать и на компоненты -->
+<!-- В ссылке #colory благодаря exportAs находится контроллер (класс ColoryDirective) -->
+<p>
+  <span appColory #colory="coloryDirective">item works! </span>
+  <span appColory #colory2="coloryDirective">item works!</span>
+</p>
+<!-- После экспорта контроллера ColoryDirective благодаря ссыле можно использовать его методы -->
+<button (click)="colory.setRandomColor(); colory2.setRandomColor()">Change color of items</button>
+
 <ng-content select="#second-p"></ng-content> <!-- ID -->
 
 <div *ngFor="let num of [1, 2, 3, 4, 5]">

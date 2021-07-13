@@ -1,7 +1,8 @@
 import { Directive, HostBinding, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appColory]'
+  selector: '[appColory]',
+  exportAs: 'coloryDirective' // экспорт класса ColoryDirective
 })
 export class ColoryDirective {
   public counter: number = 0;
@@ -11,7 +12,7 @@ export class ColoryDirective {
 
   // Декоратор для обработки событий
   @HostListener('click', ['$event']) changeColor(event: any) {
-    this.textColor = '#' + Math.floor(Math.random() * 16954321).toString(16);
+    this.setRandomColor();
     this.counter++;
     // console.log(this.counter);
     // console.log(event.target.textContent);
@@ -23,5 +24,10 @@ export class ColoryDirective {
       this.textColor = 'blue';
     }, 1000);
   }
+
+  setRandomColor() {
+    this.textColor = '#' + Math.floor(Math.random() * 16954321).toString(16);
+  }
+
 
 }
