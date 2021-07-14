@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { FirstInterceptorService } from './service/first-interceptor.service';
 import { UserService } from './service/user.service';
 import { InjectionToken, NgModule } from '@angular/core';
@@ -20,6 +21,11 @@ import { DinamicItemComponent } from './item/dinamic-item/dinamic-item.component
 // сам Token - const API_BASE_URL, имя токена 'API_BASE_URL'
 const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
+const route = [
+  { path: '', component: ItemComponent},
+  { path: 'users', component: UserComponent},
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +40,9 @@ const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(route),
+    // RouterModule.forRoot(route, {useHash: true}), //для использования диеза в сслках
   ],
   providers: [
               // Разбор механизма внедрения зависимостей - 1. provider

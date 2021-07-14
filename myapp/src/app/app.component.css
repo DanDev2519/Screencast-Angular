@@ -16,3 +16,8 @@
 .blue {
   color: blue;
 }
+
+.active {
+  font-weight: bold;
+  color: purple;
+}

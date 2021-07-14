@@ -511,6 +511,11 @@
 <!-- вывод переменной из шаблона -->
 <h1 class="title">This is {{title}}</h1>
 
+<!-- Чтоб ссылки отображали соответствующие компоненты, вс нужно закомментить -->
+<a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home </a>
+<a routerLink="users" routerLinkActive="active">Users</a>
+
+
 <app-item>
   <!-- Переменные идут из родительского scope -->
   <p class="first-p">This is content projection 1 {{title}}</p>
@@ -536,7 +541,7 @@
 <button (click)="isShowUser = !isShowUser">Toggle User</button>
 
 <!-- Директива ngIf - скрывает или показывает компоненту в зависимости от значения в "" -->
-<app-user *ngIf="isShowUser" [user1]="user" [users]="userList"></app-user>
+<!-- <app-user *ngIf="isShowUser" [user1]="user" [users]="userList"></app-user> -->
 
 <p>User list 1</p>
 <ul>
@@ -546,4 +551,5 @@
   </li>
 </ul>
 <input type="text" #userAddInput> <button (click)="addUser(userAddInput.value); userAddInput.value=''">Add user</button>
+
 <router-outlet></router-outlet>
