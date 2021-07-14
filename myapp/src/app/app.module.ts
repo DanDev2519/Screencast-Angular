@@ -1,5 +1,5 @@
 import { UserService } from './service/user.service';
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -11,6 +11,13 @@ import { ItemComponent } from './item/item.component';
 import { ColoryDirective } from './item/colory.directive';
 import { DelayDirective } from './item/delay.directive';
 import { DinamicItemComponent } from './item/dinamic-item/dinamic-item.component';
+
+// import { ReflectiveInjector } from '@angular/core';
+
+// const API_BASE_URL = 'https://jsonplaceholder.typicode.com/';
+// чтоб внедрять эту константу как зависимость используют InjectionToken
+// сам Token - const API_BASE_URL, имя токена 'API_BASE_URL'
+const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 @NgModule({
   declarations: [
@@ -28,7 +35,31 @@ import { DinamicItemComponent } from './item/dinamic-item/dinamic-item.component
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [UserService], // сервисы
+  providers: [
+              // Разбор механизма внедрения зависимостей - 1. provider
+    // {token, recept} // в recept находится класс (чаще всего)
+
+    // { provide: UserService, useClass: UserService}, // полная запись для UserService
+    UserService, // сервисы
+
+    // внедрение зависимости в виде константы
+    { provide: API_BASE_URL, useValue: 'https://jsonplaceholder.typicode.com/'}, // полная запись для UserService
+
+    /*
+    // внедрение зависимости в виде фабрики
+    { provide: UserService, useFactory: function () {
+      if (true) {  // useFactory используется, когда используется конструтор и доп логика
+        return new UserService(_http); // в таком виде дублируется useClass
+      }
+    }, deps: ['commonUserServise']}, // для этой функции можно определить зависимости в deps которые будут инджектироваться
+    */
+
+    /*
+    // в  useExisting указывается provider который был определен до этого
+    // { provide: UserService, useExisting: UserService}
+    */
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
