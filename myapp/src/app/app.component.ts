@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   title = 'myapp';
+  userID = 15;
   public name = 'Ben';
   public colorClass = 'tomato';
   public colorClick = 'aqua';

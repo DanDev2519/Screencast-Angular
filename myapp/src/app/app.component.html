@@ -512,8 +512,10 @@
 <h1 class="title">This is {{title}}</h1>
 
 <!-- Чтоб ссылки отображали соответствующие компоненты, вс нужно закомментить -->
-<a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home </a>
-<a routerLink="users" routerLinkActive="active">Users</a>
+<a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"> Home </a>
+<a routerLink="users" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"> Users </a>
+<a routerLink="users" [queryParams]="{q: 555}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"> Users with query </a>
+<a [routerLink]="['users', userID]" routerLinkActive="active"> Users {{userID}} </a>
 
 
 <app-item>
@@ -541,7 +543,7 @@
 <button (click)="isShowUser = !isShowUser">Toggle User</button>
 
 <!-- Директива ngIf - скрывает или показывает компоненту в зависимости от значения в "" -->
-<!-- <app-user *ngIf="isShowUser" [user1]="user" [users]="userList"></app-user> -->
+<app-user *ngIf="isShowUser" [user1]="user" [users]="userList"></app-user>
 
 <p>User list 1</p>
 <ul>

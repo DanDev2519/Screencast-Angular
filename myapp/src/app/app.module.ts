@@ -24,6 +24,8 @@ const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 const route = [
   { path: '', component: ItemComponent},
   { path: 'users', component: UserComponent},
+  // data - статические данные
+  { path: 'users/:userID', component: UserCardComponent, data: { title: 'users' }},
 ];
 
 @NgModule({
