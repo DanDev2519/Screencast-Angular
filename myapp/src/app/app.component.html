@@ -542,7 +542,8 @@
 <ul>
   <!-- Директива ngFor - проходит по массиву и выводит каждый эдемент item -->
   <li *ngFor="let user of userList">
-    {{user.name}}
+    {{user.name}} <span (click)="removeUser(user.name)"> [X] </span>
   </li>
 </ul>
+<input type="text" #userAddInput> <button (click)="addUser(userAddInput.value); userAddInput.value=''">Add user</button>
 <router-outlet></router-outlet>

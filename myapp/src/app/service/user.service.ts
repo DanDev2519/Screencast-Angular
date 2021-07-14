@@ -16,4 +16,12 @@ export class UserService {
   public getUserList() {
     return this.userList;
   }
+
+  public remove(name: string) {
+    return this.userList = this.userList.filter((user) => user.name !== name);
+  }
+
+  public add(name: string) {
+    this.userList.push({ name });
+  }
 }

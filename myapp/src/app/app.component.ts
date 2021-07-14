@@ -56,4 +56,17 @@ export class AppComponent implements OnInit{
     // берем список пользователей из сервиса
     this.userList = this._userService.getUserList();
   }
+
+  removeUser(name: string) {
+    this._userService.remove(name);
+    this.userList = this._userService.getUserList();
+  }
+
+  addUser(name: string) {
+    if (!name) {
+      return;
+    }
+    this._userService.add(name);
+    this.userList = this._userService.getUserList();
+  }
 }
