@@ -1,3 +1,4 @@
+import { UserService } from './service/user.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -25,7 +26,7 @@ import { DinamicItemComponent } from './item/dinamic-item/dinamic-item.component
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [UserService], // сервисы
   bootstrap: [AppComponent]
 })
 export class AppModule { }
