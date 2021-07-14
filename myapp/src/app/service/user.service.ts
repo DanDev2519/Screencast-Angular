@@ -13,10 +13,14 @@ export class UserService {
     {name: 'Alice'},
   ];
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {
+    // Запрос, который вернет ошибку 401
+    // _http.get('https://api.github.com/user').subscribe(result => {
+    //   console.log(result);
+    // });
+   }
 
   public getUserList() {
-    console.log(this._http.get('https://jsonplaceholder.typicode.com/users'))
     return this._http.get('https://jsonplaceholder.typicode.com/users'); // запрос к серверу
     // return this.userList;
   }

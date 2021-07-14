@@ -1,7 +1,8 @@
+import { FirstInterceptorService } from './service/first-interceptor.service';
 import { UserService } from './service/user.service';
 import { InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -59,6 +60,12 @@ const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
     // { provide: UserService, useExisting: UserService}
     */
 
+    // подключаем провайдер для FirstInterceptorService
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: FirstInterceptorService,
+      multi: true // флаг, говотр, что значение HTTP_INTERCEPTORS не перезаписывается
+    }
   ],
   bootstrap: [AppComponent]
 })
