@@ -2,7 +2,7 @@ import { FirstInterceptorService } from './service/first-interceptor.service';
 import { UserService } from './service/user.service';
 import { InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,6 +42,8 @@ const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
     // { provide: UserService, useClass: UserService}, // полная запись для UserService
     UserService, // сервисы
+    // Статический инжектор с указанием типа внедряемой зависимости
+    // { provide: UserService, useClass: UserService, deps: [HttpClient]},
 
     // внедрение зависимости в виде константы
     { provide: API_BASE_URL, useValue: 'https://jsonplaceholder.typicode.com/'}, // полная запись для UserService

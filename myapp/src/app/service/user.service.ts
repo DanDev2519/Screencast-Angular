@@ -33,3 +33,16 @@ export class UserService {
     this.userList.push({ name });
   }
 }
+
+/*
+// статический инжектор
+    // он без @Injectable()
+    // и в myapp\src\app\app.module.ts указанием типа внедряемой зависимости в свойстве dreps:
+  import { HttpClient } from '@angular/common/http';
+
+  export class UserService {
+
+    constructor(private _http: HttpClient) {
+    }
+  }
+*/
