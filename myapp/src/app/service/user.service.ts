@@ -1,5 +1,7 @@
-// import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+@Injectable() // декаратор, говорит, что нужно создать сервис _http, который инджектируется
 // @Injectable({
 //   providedIn: 'root'
 // })
@@ -11,10 +13,12 @@ export class UserService {
     {name: 'Alice'},
   ];
 
-  constructor() { }
+  constructor(private _http: HttpClient) { }
 
   public getUserList() {
-    return this.userList;
+    console.log(this._http.get('https://jsonplaceholder.typicode.com/users'))
+    return this._http.get('https://jsonplaceholder.typicode.com/users'); // запрос к серверу
+    // return this.userList;
   }
 
   public remove(name: string) {

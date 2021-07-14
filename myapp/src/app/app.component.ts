@@ -54,7 +54,10 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     // берем список пользователей из сервиса
-    this.userList = this._userService.getUserList();
+    // this.userList = this._userService.getUserList();
+
+    // происходит подписка и полученные пользователи записываются в переменную
+    this._userService.getUserList().subscribe(users => this.userList = users);
   }
 
   removeUser(name: string) {
