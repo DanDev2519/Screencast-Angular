@@ -1,4 +1,6 @@
-import { RouterModule } from '@angular/router';
+import { UserResolveService } from './service/user-resolve.service';
+import { AuthGuard } from './service/auth.guard';
+import { RouterModule, CanActivate } from '@angular/router';
 import { FirstInterceptorService } from './service/first-interceptor.service';
 import { UserService } from './service/user.service';
 import { InjectionToken, NgModule } from '@angular/core';
@@ -23,12 +25,30 @@ import { SettingsComponent } from './user/settings/settings.component';
 // сам Token - const API_BASE_URL, имя токена 'API_BASE_URL'
 const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
+/*
+  * Guards
+  * CanActivate - разрешает активировать стейты (роуты)
+  * CanActivateChild - разрешает активировать вложенные стейты (роуты)
+  * CanDeactivate - можно ли уйти с роута (можно уведомить пользователя, что нужно сохраниться перед уходом)
+  * CanLoad - как CanActivate только для ленивой загрузки
+
+  * Resilve - отвечает за подгрузку данных (до активации стейта он асинхронно подгружает данные)
+*/
+
 const route = [
   { path: '', component: ItemComponent},
-  { path: 'users', component: UserComponent, children: [
-    { path: 'profile', component: ProfileComponent},
-    { path: 'settings', component: SettingsComponent},
-  ]},
+  { path: 'users',
+    component: UserComponent,
+    canActivate: [ AuthGuard ],
+    resolve: {
+      //какие данные хотим подрузить: серсив resolver
+      user: UserResolveService // компонента загрузится, когда выполниться UserResolveService и в user будут данные
+    },
+    children: [
+      { path: 'profile', component: ProfileComponent},
+      { path: 'settings', component: SettingsComponent},
+    ]
+  },
   // data - статические данные
   { path: 'users/:userID', component: UserCardComponent, data: { title: 'users' }},
 ];
@@ -84,7 +104,9 @@ const route = [
       provide: HTTP_INTERCEPTORS,
       useClass: FirstInterceptorService,
       multi: true // флаг, говотр, что значение HTTP_INTERCEPTORS не перезаписывается
-    }
+    },
+    AuthGuard,
+    UserResolveService
   ],
   bootstrap: [AppComponent]
 })

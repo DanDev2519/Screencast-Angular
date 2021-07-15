@@ -16,6 +16,11 @@ export class UserComponent implements OnInit {
   constructor(private _router: Router, private _route: ActivatedRoute) {
     // ActivatedRoute - текущий путь
     // console.log('constructor', this.admin);
+
+    // для получения параметров из UserResolveService из resolve
+    this._route.data.subscribe(data => {
+      if (Object.keys(data).length !== 0) console.log('resole', data.user);
+    });
   }
 
   // Это хук, который выполняется после передачи всех данных в компоненту
