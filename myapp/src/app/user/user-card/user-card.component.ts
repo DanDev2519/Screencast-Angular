@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-card',
@@ -12,7 +12,7 @@ export class UserCardComponent implements OnInit {
   // Вывод значения переменной по событию
   @Output() currentUserClick: EventEmitter<any> = new EventEmitter();
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     // для получения статических параметров из route
     this.route.data.subscribe(params => {
       if (Object.keys(params).length !== 0) console.log('static', params);
@@ -27,6 +27,13 @@ export class UserCardComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (Object.keys(params).length !== 0) console.log('query', params);
     });
+
+    // обработка событий роутера - данный способ устарел (новый пока что не знаю)
+    // this.router.events.subscribe((event: Event) => {
+    //   if (event instanceof NavigationStart) {
+    //     console.log(event);
+    //   }
+    // });
   }
 
   ngOnInit(): void {
