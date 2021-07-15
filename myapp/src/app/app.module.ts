@@ -13,6 +13,8 @@ import { ItemComponent } from './item/item.component';
 import { ColoryDirective } from './item/colory.directive';
 import { DelayDirective } from './item/delay.directive';
 import { DinamicItemComponent } from './item/dinamic-item/dinamic-item.component';
+import { ProfileComponent } from './user/profile/profile.component';
+import { SettingsComponent } from './user/settings/settings.component';
 
 // import { ReflectiveInjector } from '@angular/core';
 
@@ -23,7 +25,10 @@ const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 const route = [
   { path: '', component: ItemComponent},
-  { path: 'users', component: UserComponent},
+  { path: 'users', component: UserComponent, children: [
+    { path: 'profile', component: ProfileComponent},
+    { path: 'settings', component: SettingsComponent},
+  ]},
   // data - статические данные
   { path: 'users/:userID', component: UserCardComponent, data: { title: 'users' }},
 ];
@@ -36,7 +41,9 @@ const route = [
     ItemComponent,
     ColoryDirective,
     DelayDirective,
-    DinamicItemComponent
+    DinamicItemComponent,
+    ProfileComponent,
+    SettingsComponent
   ],
   entryComponents: [DinamicItemComponent], // компоненты которые будут добалвены динамически
   imports: [
