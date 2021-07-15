@@ -1,3 +1,4 @@
+import { LoginComponent } from './user/login/login.component';
 import { UserResolveService } from './service/user-resolve.service';
 import { AuthGuard } from './service/auth.guard';
 import { RouterModule, CanActivate } from '@angular/router';
@@ -37,6 +38,7 @@ const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 const route = [
   { path: '', component: ItemComponent},
+  { path: 'login', component: LoginComponent, outlet: 'popup'}, // для именнованного outlet
   { path: 'users',
     component: UserComponent,
     canActivate: [ AuthGuard ],
@@ -63,7 +65,8 @@ const route = [
     DelayDirective,
     DinamicItemComponent,
     ProfileComponent,
-    SettingsComponent
+    SettingsComponent,
+    LoginComponent
   ],
   entryComponents: [DinamicItemComponent], // компоненты которые будут добалвены динамически
   imports: [
