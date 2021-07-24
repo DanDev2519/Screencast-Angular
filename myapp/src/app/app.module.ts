@@ -38,6 +38,9 @@ const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 const route = [
   { path: '', component: ItemComponent},
+  { path: 'admin',
+    loadChildren: () => import('./admin/admin.module')
+      .then(module => module.AdminModule)}, // для ленивой загрузки
   { path: 'login', component: LoginComponent, outlet: 'popup'}, // для именнованного outlet
   { path: 'users',
     component: UserComponent,

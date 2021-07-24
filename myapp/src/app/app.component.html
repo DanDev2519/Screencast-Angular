@@ -516,6 +516,7 @@
 <a routerLink="users" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"> Users </a>
 <a routerLink="users" [queryParams]="{q: 555}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"> Users with query </a>
 <a [routerLink]="['users', userID]" routerLinkActive="active"> Users {{userID}} </a>
+<a routerLink="admin" routerLinkActive="active"> Admin </a>
 <br>
 <!-- <a [routerLink]="[{ outlets: {primary: 'users'} }]">Show Login</a> primary - для изменения основного outlet-->
 <a [routerLink]="[{ outlets: {popup: 'login'} }]"> Show Login </a>
