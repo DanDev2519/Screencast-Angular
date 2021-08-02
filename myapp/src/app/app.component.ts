@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { UserService } from './service/user.service';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -22,13 +22,8 @@ export class AppComponent implements OnInit{
     firstColor: new FormControl(),
     secondColor: new FormControl(),
   });
-  colorListControl: FormGroup = new FormGroup({
-    colorsList: new FormArray([
-      new FormControl('Red'),
-      new FormControl('Green'),
-      new FormControl('Yellow'),
-    ])
-  });
+  colorListControl!: FormGroup;
+
   userID = 15;
   public name = 'Ben';
   public colorClass = 'tomato';
@@ -54,7 +49,7 @@ export class AppComponent implements OnInit{
         // constructor(userService: UserService) {
         //   this._userService = userService;
         // сокращенная версия
-  constructor(private _userService: UserService) {
+  constructor(private _userService: UserService, private formBuilder: FormBuilder) {
 
     setTimeout(() => {
       this.colorClass = 'green';
@@ -87,6 +82,17 @@ export class AppComponent implements OnInit{
       // console.log(status);
     });
     // this.listColors.valueChanges.subscribe((value) => console.log(value));
+
+    // this.colorListControl = new FormGroup({
+    //   colorsList: new FormArray([
+    //     new FormControl('Red'),
+    //     new FormControl('Green'),
+    //     new FormControl('Yellow'),
+    //   ])
+    // });
+    this.colorListControl = this.formBuilder.group({
+      colorsList: this.formBuilder.array([['Red'], ['Green'], ['Yellow']])
+    });
     // this.colorListControl.valueChanges.subscribe((value) => console.log(value));
   }
 
