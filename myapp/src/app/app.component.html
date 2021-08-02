@@ -534,7 +534,7 @@
 <!-- Обработка событий -->
 <p (click)="changeColor(colorNewClick)" [style.color]="colorClick" [style.cursor]="'pointer'" [style.font-size.px]="50">Click me!</p>
 <!-- <input type="text" (input)="changeColor($event.target.value)"> -->
-<input type="text" (input)="changeColor('black')"
+<input type="text" [formControl]='nameColor' (input)="changeColor('black')"
 (keydown.enter)="changeColor('red')"
 (keydown.control.enter)="changeColor('yellow')"
 (keydown.control.shift.enter)="changeColor('tomato')">

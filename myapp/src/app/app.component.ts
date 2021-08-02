@@ -1,5 +1,7 @@
+import { Observable, of } from 'rxjs';
 import { UserService } from './service/user.service';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   title = 'myapp';
+  // nameColor!: FormControl;
+  nameColor: FormControl = new FormControl('tomato', [
+    Validators.required,
+    Validators.maxLength(10),
+    myValidator(2)
+  ], [
+    // myAsyncValidator,// асинхронный валидатор
+  ]);
   userID = 15;
   public name = 'Ben';
   public colorClass = 'tomato';
@@ -59,6 +69,12 @@ export class AppComponent implements OnInit{
 
     // происходит подписка и полученные пользователи записываются в переменную
     this._userService.getUserList().subscribe(users => this.userList = users);
+
+    // this.nameColor.valueChanges.subscribe((value) => console.log(value));
+    this.nameColor.statusChanges.subscribe((status) => {
+      this.nameColor.errors && console.log(this.nameColor.errors);
+      // console.log(status);
+    });
   }
 
   removeUser(name: string) {
@@ -73,4 +89,25 @@ export class AppComponent implements OnInit{
     this._userService.add(name);
     this.userList = this._userService.getUserList();
   }
+}
+
+// функции валидации
+function myValidator(number: number) {
+  return function (formControl: FormControl) {
+    if (formControl.value.length < number) {
+      return { myValidator: {
+        message: `Length less than ${number}`,
+        requiredLength: number,
+        actualLength: formControl.value.length
+      } };
+    }
+    return null;
+  }
+}
+
+function myAsyncValidator(formControl: FormControl): Observable<null|any> {
+  if (formControl.value.length < 3) {
+    return of({ myAsyncValidator: { message: 'Asyc: Length less than 3'} });
+  }
+  return of(null);
 }

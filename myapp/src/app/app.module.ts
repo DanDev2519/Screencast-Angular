@@ -19,6 +19,7 @@ import { DelayDirective } from './item/delay.directive';
 import { DinamicItemComponent } from './item/dinamic-item/dinamic-item.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { SettingsComponent } from './user/settings/settings.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // import { ReflectiveInjector } from '@angular/core';
 
@@ -84,6 +85,8 @@ const route = [
     // RouterModule.forRoot(route, {useHash: true}), //для использования диеза в сслках
     // RouterModule.forRoot(route, {preloadingStrategy: PreloadAllModules}), // для предзагрузки всех модулей ленивой звгрузки
     RouterModule.forRoot(route, {preloadingStrategy: AdminPreloadModules}), // для предзагрузки модулей ленивой звгрузки по собственному усмотрению
+    FormsModule, // для форм
+    ReactiveFormsModule, // для реактивныйх форм
   ],
   providers: [
               // Разбор механизма внедрения зависимостей - 1. provider
