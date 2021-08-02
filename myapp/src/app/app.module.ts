@@ -1,7 +1,8 @@
+import { AdminPreloadModules } from './admin/admin-preload-strategy';
 import { LoginComponent } from './user/login/login.component';
 import { UserResolveService } from './service/user-resolve.service';
 import { AuthGuard } from './service/auth.guard';
-import { RouterModule, CanActivate } from '@angular/router';
+import { RouterModule, CanActivate, PreloadAllModules } from '@angular/router';
 import { FirstInterceptorService } from './service/first-interceptor.service';
 import { UserService } from './service/user.service';
 import { InjectionToken, NgModule } from '@angular/core';
@@ -39,6 +40,9 @@ const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 const route = [
   { path: '', component: ItemComponent},
   { path: 'admin',
+    data: {
+      notreload: true
+    },
     loadChildren: () => import('./admin/admin.module')
       .then(module => module.AdminModule)}, // для ленивой загрузки
   { path: 'login', component: LoginComponent, outlet: 'popup'}, // для именнованного outlet
@@ -76,8 +80,10 @@ const route = [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot(route),
+    // RouterModule.forRoot(route),
     // RouterModule.forRoot(route, {useHash: true}), //для использования диеза в сслках
+    // RouterModule.forRoot(route, {preloadingStrategy: PreloadAllModules}), // для предзагрузки всех модулей ленивой звгрузки
+    RouterModule.forRoot(route, {preloadingStrategy: AdminPreloadModules}), // для предзагрузки модулей ленивой звгрузки по собственному усмотрению
   ],
   providers: [
               // Разбор механизма внедрения зависимостей - 1. provider
@@ -112,7 +118,8 @@ const route = [
       multi: true // флаг, говотр, что значение HTTP_INTERCEPTORS не перезаписывается
     },
     AuthGuard,
-    UserResolveService
+    UserResolveService,
+    AdminPreloadModules
   ],
   bootstrap: [AppComponent]
 })
