@@ -538,6 +538,19 @@
 (keydown.enter)="changeColor('red')"
 (keydown.control.enter)="changeColor('yellow')"
 (keydown.control.shift.enter)="changeColor('tomato')">
+<fieldset [formGroup]="listColors">
+  <input formControlName="firstColor" type="text">
+  <input formControlName="secondColor" type="text">
+</fieldset>
+<form [formGroup]="colorListControl">
+  <ul formArrayName="colorsList">
+    <li *ngFor="let colorControl of colorList.controls; let i = index">
+      <input formControlName="{{i}}">
+      <button (click)="removeColorControl(i)">Remove</button>
+    </li>
+  </ul>
+  <button (click)="addColorControl()">Add</button>
+</form>
 <!-- Работа с элементами по ссылке -->
 <div style="margin: 20px 0;">
   <p>Input color text</p>

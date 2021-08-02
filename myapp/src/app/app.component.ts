@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { UserService } from './service/user.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +18,17 @@ export class AppComponent implements OnInit{
   ], [
     // myAsyncValidator,// асинхронный валидатор
   ]);
+  listColors: FormGroup = new FormGroup({
+    firstColor: new FormControl(),
+    secondColor: new FormControl(),
+  });
+  colorListControl: FormGroup = new FormGroup({
+    colorsList: new FormArray([
+      new FormControl('Red'),
+      new FormControl('Green'),
+      new FormControl('Yellow'),
+    ])
+  });
   userID = 15;
   public name = 'Ben';
   public colorClass = 'tomato';
@@ -75,6 +86,8 @@ export class AppComponent implements OnInit{
       this.nameColor.errors && console.log(this.nameColor.errors);
       // console.log(status);
     });
+    // this.listColors.valueChanges.subscribe((value) => console.log(value));
+    // this.colorListControl.valueChanges.subscribe((value) => console.log(value));
   }
 
   removeUser(name: string) {
@@ -88,6 +101,19 @@ export class AppComponent implements OnInit{
     }
     this._userService.add(name);
     this.userList = this._userService.getUserList();
+  }
+
+  get colorList() {
+    return <FormArray>this.colorListControl.get('colorsList');
+  }
+
+  removeColorControl(index: number) {
+    (this.colorListControl.controls['colorsList'] as FormArray).removeAt(index);
+    // this.colorList.removeAt(index);
+  }
+
+  addColorControl() {
+    (this.colorListControl.controls['colorsList'] as FormArray).push(new FormControl(''));
   }
 }
 
